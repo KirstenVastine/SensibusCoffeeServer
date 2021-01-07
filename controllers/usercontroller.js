@@ -8,6 +8,8 @@ const validateSession = require('../middleware/validate-session');
 
 
 router.post('/signup', (req, res) => {
+
+    console.log('what came?', req.body);
     User.create({
         firstName: req.body.firstName,
         lastName: req.body.lastName,

@@ -9,6 +9,8 @@ const database = require('./db')
 database.sync()
 //database.sync({force:true})
 
+app.use(require('./middleware/headers'));
+
 app.get('/', (req,res) => res.render('index'));
 
 const user = require('./controllers/usercontroller');
