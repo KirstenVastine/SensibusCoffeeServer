@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
             // }
         },
         rating: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.DECIMAL,
             allowNull: false,
             validate: {notEmpty:true}
         }

@@ -20,6 +20,11 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true,
             validate: {notEmpty: false}
         },
+        imageURL: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            validate: {notEmpty: false}
+        },
     })
     return Coffee
 }

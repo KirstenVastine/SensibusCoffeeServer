@@ -1,9 +1,10 @@
 const router = require('express').Router();
-const User = require("../db").import("../models/user")
+const {User} = require("../db");
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs');
 const validateSession = require('../middleware/validate-session');
-//const Coffee = require('../models/Coffee');
+const {Coffee} = require("../db");
+
 
 
 
@@ -31,10 +32,10 @@ router.post('/signup', (req, res) => {
 
 
 
-router.post('/login', validateSession, (req, res) =>{
-     
+router.post('/login', (req, res) =>{
+    console.log('login session successful111') 
     User.findOne({
-        where:{email: req.body.email}
+        where:{email: req.body.user.email}
     })
     .then(user => {
         if(user){
@@ -61,7 +62,7 @@ router.post('/login', validateSession, (req, res) =>{
 
 
 router.get('/coffee', (req, res) => {
-    User.findAll(
+    Coffee.findAll(
         // coffeeOrigin: req.body.coffeeOrigin,
         // coffeeNotes: req.body.coffeeNotes,
         // price: req.body.price,

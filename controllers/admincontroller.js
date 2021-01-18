@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs');
-const coffee = require("../db").import('../models/Coffee');
+const {Coffee, Review} = require("../db");
 const validateSession = require('../middleware/validate-session');
 const { query } = require('express');
 
@@ -15,7 +15,7 @@ router.post('/coffee', (req,res) => {
         price: req.body.price,
         description: req.body.description
     }
-    coffee.create(coffeeCreate)
+    Coffee.create(coffeeCreate)
     .then(coffee => res.status(200).json(coffee))
     .catch(err => res.status(500).json({ error:err}))
 });
@@ -31,9 +31,27 @@ router.post('/coffee', (req,res) => {
 //     .catch(err => res.status(500).json({ error: err }))
 // })
 router.get('/allcoffee', function (req, res) {
-    coffee.findAll()
+    Coffee.findAll({
+        include:[
+            {model:Review}
+        ]
+    })
     .then(coffee => res.status(200).json(coffee))
     .catch(err=> res.status(500).json({error:err}))
+});
+
+
+router.get("/:coffeeId", function (req, res) {
+  Coffee.findOne({
+    where: { id: req.params.coffeeId },
+    include: [{ model: Review }],
+  })
+    .then((coffee) =>
+      res.status(200).json({ data: coffee, status: 200, message: "success" })
+    )
+    .catch((err) =>
+      res.status(500).json({ error: err, status: 500, message: "failed" })
+    );
 });
 
 
@@ -47,7 +65,7 @@ router.put("/update/:id",  function(req, res){
     };
     const query= { where: {id: req.params.id}}
 
-    coffee.update(updateCoffee, query)
+    Coffee.update(updateCoffee, query)
        .then((coffee)=> res.status(200).json(coffee))
        .catch((err) => res.status(500).json({error:err}))
 })
@@ -55,7 +73,7 @@ router.put("/update/:id",  function(req, res){
 //Here is the delete coffee endpoint for the admin portal.
 router.delete("/delete/:id",  function (req, res){
     const query= {where: {id: req.params.id}};
-    coffee.destroy(query)
+    Coffee.destroy(query)
     .then(()=> res.status(200).json({message: "coffee is removed"}))
     .catch((err) => res.status(500).json({error:err}))
 })

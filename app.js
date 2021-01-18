@@ -5,9 +5,9 @@ app.use(Express.json());
 //app.listen(process.env.PORT,() => console.log(`App is listening on ${process.env.PORT}`))
 app.use(Express.static(__dirname+'/public'));
 
-const database = require('./db')
+const {database} = require('./db')
 database.sync()
-//database.sync({force:true})
+// database.sync({force:true})
 
 app.use(require('./middleware/headers'));
 
