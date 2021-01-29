@@ -23,6 +23,7 @@ router.post('/signup', (req, res) => {
 
         res.json({
             user:user,
+            status:200,
             message: "user was created successfully",
             sessionToken: token
         })
@@ -45,6 +46,7 @@ router.post('/login', (req, res) =>{
                         const token=jwt.sign({id:user.id},process.env.JWT_SECRET, {expiresIn:"7d"})
                         res.status(200).json({
                             user:user,
+                            status:200,
                             message: "successfully authenticated",
                             sessionToken:token
                         })

@@ -41,6 +41,19 @@ router.get('/allcoffee', function (req, res) {
 });
 
 
+// router.get("/:coffeeId", function (req, res) {
+//   Coffee.findOne({
+//     where: { id: req.params.coffeeId },
+//     include: [{ model: Review }],
+//   })
+//     .then((coffee) =>
+//       res.status(200).json({ data: coffee, status: 200, message: "success" })
+//     )
+//     .catch((err) =>
+//       res.status(500).json({ error: err, status: 500, message: "failed" })
+//     );
+// });
+
 router.get("/:coffeeId", function (req, res) {
   Coffee.findOne({
     where: { id: req.params.coffeeId },
