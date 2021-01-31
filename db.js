@@ -14,9 +14,9 @@ database
   .then(() => console.log("postgres db is connected"))
   .catch((err) => console.log(err));
 
-const Review = database.import("./Models/Review");
-const User = database.import("./Models/User");
-const Coffee = database.import("./Models/Coffee");
+const Review = database.import("./models/Review");
+const User = database.import("./models/User");
+const Coffee = database.import("./models/Coffee");
 
 User.hasMany(Review);
 Review.belongsTo(User);
