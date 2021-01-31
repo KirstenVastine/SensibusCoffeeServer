@@ -2,7 +2,7 @@ require('dotenv').config();
 const Express = require('express')
 const app = Express();
 app.use(Express.json());
-app.listen(process.env.PORT,() => console.log(`App is listening on ${process.env.PORT}`))
+
 app.use(Express.static(__dirname+'/public'));
 
 const {database} = require('./db')
