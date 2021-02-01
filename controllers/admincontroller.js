@@ -13,7 +13,8 @@ router.post('/coffee', (req,res) => {
         coffeeNotes: req.body.coffeeNotes,
         coffeeOrigin: req.body.coffeeOrigin,
         price: req.body.price,
-        description: req.body.description
+        description: req.body.description,
+        imageURL: req.body.imageURL
     }
     Coffee.create(coffeeCreate)
     .then(coffee => res.status(200).json(coffee))
@@ -74,7 +75,8 @@ router.put("/update/:id",  function(req, res){
         coffeeOrigin: req.body.coffeeOrigin,
         coffeeNotes: req.body.coffeeNotes,
         price: req.body.price,
-        description: req.body.description
+        description: req.body.description,
+        imageURL: req.body.imageURL
     };
     const query= { where: {id: req.params.id}}
 

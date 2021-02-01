@@ -43,6 +43,7 @@ router.get("/allreviews/:coffeeId", validateSession, function (req, res) {
   Review.findAll({
     where: { coffeeId: req.params.coffeeId },
     include: [{ model: User, attributes: ["firstName", "lastName"] }],
+    order:[['createdAt','DESC']]
   })
     .then((review) =>
       res.status(200).json({ data: review, status: 200, message: "success" })
@@ -57,22 +58,21 @@ router.put("/update/:id", validateSession, function (req, res) {
   const updateReview = {
     reviewHeader: req.body.reviewHeader,
     reviewComment: req.body.reviewComment,
-    date: req.body.date,
     rating: req.body.rating,
   };
   const query = { where: { id: req.params.id } };
 
   Review.update(updateReview, query)
-    .then((review) => res.status(200).json(review))
-    .catch((err) => res.status(500).json({ error: err }));
+    .then((review) => res.status(200).json({data:review,status:200,message:'success'}))
+    .catch((err) => res.status(500).json({ data: err,status:500,message:'error' }));
 });
 
 //Delete a Review
 router.delete("/delete/:id", validateSession, function (req, res) {
   const query = { where: { id: req.params.id } };
   Review.destroy(query)
-    .then(() => res.status(200).json({ message: "review is removed" }))
-    .catch((err) => res.status(500).json({ error: err }));
+    .then((data) => res.status(200).json({ data ,status:200,message: "review is removed" }))
+    .catch((err) => res.status(500).json({ data: err, status:500, message:'error' }));
 });
 
 module.exports = router;
