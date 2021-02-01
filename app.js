@@ -7,7 +7,7 @@ app.use(Express.static(__dirname+'/public'));
 
 const {database} = require('./db')
 database.sync()
-// database.sync({force:true})
+//database.sync({force:true})
 
 app.use(require('./middleware/headers'));
 

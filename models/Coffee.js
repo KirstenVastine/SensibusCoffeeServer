@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
             validate: {notEmpty:true}
         },
         price: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.DECIMAL,
             allowNull: false,
             validate: {notEmpty:true}
         },
